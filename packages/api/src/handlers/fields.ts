@@ -1,5 +1,7 @@
 import { Request, Response } from "express"
-import { getAllFields, getFieldById } from "../lib/fields"
+
+import { getAllFields, getFieldById, getSensorReadings } from "../lib/fields"
+
 
 export async function handleGetFields(req: Request, res: Response) {
   try {
@@ -24,6 +26,16 @@ export async function handleGetField(req: Request, res: Response) {
     res.json(field)
   } catch (error) {
     console.error("Error fetching field:", error)
+    res.status(500).json({ error: "Internal server error" })
+  }
+}
+export async function handleGetSensorReadings(req: Request, res: Response) {
+  try {
+    const { id } = req.params
+    const readings = await getSensorReadings(id)
+    res.json(readings)
+  } catch (error) {
+    console.error("Error fetching sensor readings:", error)
     res.status(500).json({ error: "Internal server error" })
   }
 }

@@ -1,7 +1,8 @@
 import cors from "cors"
 import dotenv from "dotenv"
 import express from "express"
-import { handleGetFields, handleGetField } from "./handlers/fields"
+import { handleGetFields, handleGetField, handleGetSensorReadings } from "./handlers/fields"
+
 
 dotenv.config()
 
@@ -12,6 +13,7 @@ app.use(cors())
 app.use(express.json())
 
 app.get("/fields", handleGetFields)
+app.get("/fields/:id/sensor-readings", handleGetSensorReadings)
 app.get("/fields/:id", handleGetField)
 
 app.listen(PORT, () => {
